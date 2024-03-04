@@ -20,7 +20,9 @@ import com.noureldin.news.ui.main.MainActivity
 import com.noureldin.news.util.Constants
 import com.noureldin.news.util.OnTryAgainClickListener
 import com.noureldin.news.util.showAlertDialog
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
     private val adapter = ArticlesAdapter()
