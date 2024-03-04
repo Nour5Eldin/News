@@ -4,17 +4,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
-import com.noureldin.news.api.ApiManager
 import com.noureldin.news.api.articlesModel.Article
 import com.noureldin.news.api.articlesModel.ArticlesResponse
 import com.noureldin.news.repository.articles.ArticlesRepository
 import com.noureldin.news.util.ViewError
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.HttpException
-import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
