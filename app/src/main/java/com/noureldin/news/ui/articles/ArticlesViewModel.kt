@@ -17,7 +17,7 @@ import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
-class ArticlesViewModel @Inject constructor(
+class ArticlesViewModel  @Inject constructor(
     private val sourcesRepository: SourcesRepository,
     private val articlesRepository: ArticlesRepository
 ): ViewModel() {
