@@ -20,7 +20,9 @@ import com.noureldin.news.util.Constants
 import com.noureldin.news.util.OnTryAgainClickListener
 import com.noureldin.news.util.TabPreferences
 import com.noureldin.news.util.showAlertDialog
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ArticlesFragment : Fragment() {
     private lateinit var binding: FragmentArticlesBinding
     private val adapter = ArticlesAdapter()

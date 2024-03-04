@@ -13,7 +13,9 @@ import com.noureldin.news.ui.categories.CategoriesFragment
 import com.noureldin.news.ui.search.SearchFragment
 import com.noureldin.news.ui.settings.SettingsFragment
 import com.noureldin.news.util.Constants
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
