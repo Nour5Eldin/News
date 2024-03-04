@@ -1,9 +1,9 @@
-package com.noureldin.news.repos.dataSourceContract
+package com.noureldin.news.dataRepos.dataSourceContract
 
-import com.noureldin.news.repos.dataSourceContract.sources.SourcesDataSource
-import com.noureldin.news.repos.dataSource.articles.ArticlesOnlineDataSourceImpl
-import com.noureldin.news.repos.dataSource.sources.SourcesOnlineDataSourceImpl
-import com.noureldin.news.repos.dataSourceContract.articles.ArticlesDataSource
+import com.noureldin.news.dataRepos.dataSourceContract.sources.SourcesDataSource
+import com.noureldin.news.dataRepos.dataSource.articles.ArticlesOnlineDataSourceImpl
+import com.noureldin.news.dataRepos.dataSource.sources.SourcesOnlineDataSourceImpl
+import com.noureldin.news.dataRepos.dataSourceContract.articles.ArticlesDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

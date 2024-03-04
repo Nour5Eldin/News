@@ -1,4 +1,4 @@
-package com.noureldin.news.repos.dataSourceContract.sources
+package com.noureldin.news.dataRepos.dataSourceContract.sources
 
 import com.noureldin.news.api.sourcesModel.Source
 

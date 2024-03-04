@@ -1,10 +1,10 @@
-package com.noureldin.news.repos.dataSource.articles
+package com.noureldin.news.dataRepos.dataSource.articles
 
 
 
 import com.noureldin.news.api.WebServices
 import com.noureldin.news.api.articlesModel.Article
-import com.noureldin.news.repos.dataSourceContract.articles.ArticlesDataSource
+import com.noureldin.news.dataRepos.dataSourceContract.articles.ArticlesDataSource
 import javax.inject.Inject
 
 

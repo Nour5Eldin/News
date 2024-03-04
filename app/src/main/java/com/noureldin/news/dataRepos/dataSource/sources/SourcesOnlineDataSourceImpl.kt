@@ -1,6 +1,6 @@
-package com.noureldin.news.repos.dataSource.sources
+package com.noureldin.news.dataRepos.dataSource.sources
 
-import com.noureldin.news.repos.dataSourceContract.sources.SourcesDataSource
+import com.noureldin.news.dataRepos.dataSourceContract.sources.SourcesDataSource
 import com.noureldin.news.api.WebServices
 import com.noureldin.news.api.sourcesModel.Source
 import javax.inject.Inject
