@@ -30,7 +30,7 @@
                 <ImageView
                     android:id="@+id/article_img"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="210dp"
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
                     app:layout_constraintTop_toTopOf="parent"
@@ -38,6 +38,19 @@
                     app:url="@{article.urlToImage}"
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
+                <TextView
+                    android:id="@+id/sourceName_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@id/article_img"
+                    tools:text="@{article.author}" />
                 <TextView
                     android:id="@+id/article_title"
                     android:layout_width="match_parent"
@@ -49,7 +62,7 @@
                     android:textColor="@color/black"
                     android:textSize="21sp"
                     android:textStyle="bold"
-                    app:layout_constraintTop_toBottomOf="@id/article_img"
+                    app:layout_constraintTop_toBottomOf="@id/sourceName_tv"
                     tools:text="@{article.title}" />
 
                 <TextView
@@ -64,6 +77,18 @@
                     android:textSize="18sp"
                     app:layout_constraintTop_toBottomOf="@id/article_title"
                     tools:text="@{article.description}" />
+                <TextView
+                    android:id="@+id/article_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppins_light"
+                    android:lines="2"
+                    android:maxLines="2"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@id/article_description"
+                    tools:text="@{article.publishedAt}" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
