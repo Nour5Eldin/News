@@ -9,6 +9,7 @@ import com.noureldin.news.api.articlesModel.Article
 import com.noureldin.news.api.articlesModel.ArticlesResponse
 import com.noureldin.news.repository.articles.ArticlesRepository
 import com.noureldin.news.util.ViewError
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,6 +17,7 @@ import retrofit2.HttpException
 import retrofit2.Response
 import javax.inject.Inject
 
+@HiltViewModel
 class SearchViewModel @Inject constructor(private val articlesRepository: ArticlesRepository): ViewModel() {
     val articlesLiveData = MutableLiveData<List<Article?>?>()
     val errorLiveData = MutableLiveData<ViewError>()
