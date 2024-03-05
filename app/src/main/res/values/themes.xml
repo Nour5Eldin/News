@@ -21,4 +21,5 @@
     <style name="toolbar_title">
         <item name="android:textColor">@color/white</item>
     </style>
+    <style name="ScreenBackground"><item name="android:background">@drawable/pattern_bg</item></style>
 </resources>

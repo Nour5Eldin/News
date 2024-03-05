@@ -1,5 +1,7 @@
 package com.noureldin.news.ui.settings
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.SwitchCompat
 import com.noureldin.news.R
 import com.noureldin.news.databinding.FragmentSettingsBinding
 import com.noureldin.news.util.LocaleManager
@@ -16,7 +20,10 @@ import com.noureldin.news.util.recreateActivity
 
 class SettingsFragment : Fragment() {
     private lateinit var binding: FragmentSettingsBinding
-
+    private lateinit var switchCompat: SwitchCompat
+    private var nightMode: Boolean=false
+    private var editor: SharedPreferences.Editor?=null
+    private var sharedPreferences: SharedPreferences?=null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,6 +39,31 @@ class SettingsFragment : Fragment() {
         val language = if (currentCountryCode == "en") "English" else "Arabic"
         setLanguageDropDownMenuState(language)
         onLanguageDropDownMenuClick()
+        switchNightMode()
+    }
+
+    private fun switchNightMode() {
+       switchCompat= binding.switchMode
+        sharedPreferences= activity?.getSharedPreferences("MODE",Context.MODE_PRIVATE)
+        nightMode=sharedPreferences?.getBoolean("night",false)!!
+
+        if (nightMode){
+            switchCompat.isChecked=true
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
+        switchCompat.setOnCheckedChangeListener { compoundButton, state ->
+            if (nightMode){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                editor=sharedPreferences?.edit()
+                editor?.putBoolean("night",false)
+            }else{
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                editor=sharedPreferences?.edit()
+                editor?.putBoolean("night",true)
+            }
+            editor?.apply()
+        }
+
     }
 
     override fun onResume() {

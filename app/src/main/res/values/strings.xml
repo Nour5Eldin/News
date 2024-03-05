@@ -22,12 +22,72 @@
     <string name="business">Business</string>
     <string name="entertainment">Entertainment</string>
     <string name="science">Science</string>
-    <string name="supervised_by_noureldin">Supervised by NourEldin</string>
+    <string name="supervised_by_noureldin" translatable="false">Supervised by NourEldin</string>
+    <string name="App_mode">App Mode</string>
 
     <string-array name="languages">
         <item>English</item>
         <item>Arabic</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string-array name="countries">
+        <item>Argentina: ar</item>
+        <item>Australia: au</item>
+        <item>Austria: at</item>
+        <item>Belgium: be</item>
+        <item>Brazil: br</item>
+        <item>Bulgaria: bg</item>
+        <item>Bulgaria: bg</item>
+        <item>Canada: ca</item>
+        <item>China: cn</item>
+        <item>Colombia: co</item>
+        <item>Cuba: cu</item>
+        <item>Czech Republic: cz</item>
+        <item>Egypt: eg</item>
+        <item>France: fr</item>
+        <item>Germany: de</item>
+        <item>Greece: gr</item>
+        <item>Hong Kong: hk</item>
+        <item>Hungary: hu</item>
+        <item>India: in</item>
+        <item>Indonesia: id</item>
+        <item>Ireland: ie</item>
+        <item>Israel: il</item>
+        <item>Italy: it</item>
+        <item>Japan: jp</item>
+        <item>Latvia: lv</item>
+        <item>Lithuania: lt</item>
+        <item>Malaysia: my</item>
+        <item>Mexico: mx</item>
+        <item>Morocco: ma</item>
+        <item>Netherlands: nl</item>
+        <item>New Zealand: nz</item>
+        <item>Nigeria: ng</item>
+        <item>Norway: no</item>
+        <item>Philippines: ph</item>
+        <item>Poland: pl</item>
+        <item>Portugal: pt</item>
+        <item>Romania: ro</item>
+        <item>Russia: ru</item>
+        <item>Saudi Arabia: sa</item>
+        <item>Serbia: rs</item>
+        <item>Singapore: sg</item>
+        <item>Slovakia: sk</item>
+        <item>Slovenia: si</item>
+        <item>South Africa: za</item>
+        <item>South Korea: kr</item>
+        <item>Sweden: se</item>
+        <item>Switzerland: ch</item>
+        <item>Taiwan: tw</item>
+        <item>Thailand: th</item>
+        <item>Turkey: tr</item>
+        <item>Ukraine: ua</item>
+        <item>United Arab Emirates: ae</item>
+        <item>United Kingdom: gb</item>
+        <item>United States: us</item>
+        <item>United States</item>
+        <item>Venezuela: ve</item>
+    </string-array>
+
 </resources>
