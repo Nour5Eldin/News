@@ -1,5 +1,6 @@
 package com.noureldin.news.ui.articles
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -33,13 +34,14 @@ class ArticlesViewModel  @Inject constructor(
             try {
                 val articles = articlesRepository.getArticles(source = source)
                 articlesList.postValue(articles)
-
+                Log.e("ViewModel", "Error fetching sources: $articles")
                 if (articles?.isEmpty() == true)
                     shouldDisplayNoArticlesFound.postValue(true)
                 else
                     shouldDisplayNoArticlesFound.postValue(false)
             } catch (e: HttpException) {
                 val jsonString = e.response()?.errorBody()?.string()
+                Log.e("ViewModel", "Error fetching sources: $jsonString")
                 val response = Gson().fromJson(jsonString, ArticlesResponse::class.java)
                 errorLiveData.postValue(ViewError(
                     response.message
@@ -95,22 +97,24 @@ class ArticlesViewModel  @Inject constructor(
     }
 
 
-    fun getSources(category: String) {
+    fun getSources(category: String,country: String) {
         shouldLoad.postValue(true)
         viewModelScope.launch {
             try {
-                val sources = sourcesRepository.getSources(category = category)
+                val sources = sourcesRepository.getSources(category = category, country = country )
                 sourcesList.postValue(sources)
+                Log.d("ViewModel", "Sources fetched successfully: $sources")
             } catch (e: HttpException) {
                 val jsonString = e.response()?.errorBody()?.string()
+                Log.e("ViewModel", "Error fetching sources: $jsonString")
                 val response = Gson().fromJson(jsonString, SourcesResponse::class.java)
                 errorLiveData.postValue(ViewError(response.message) {
-                    getSources(category)
+                    getSources(category,country)
 
                 })
             } catch (e: Exception) {
                 errorLiveData.postValue(ViewError(e.localizedMessage) {
-                    getSources(category)
+                    getSources(category,country)
                 })
             } finally {
                 shouldLoad.postValue(false)
@@ -118,6 +122,7 @@ class ArticlesViewModel  @Inject constructor(
             }
 
         }
+
 //        ApiManager.getApis().getSources(category = category, country = country)
 //            .enqueue(object : Callback<SourcesResponse> {
 //                override fun onResponse(

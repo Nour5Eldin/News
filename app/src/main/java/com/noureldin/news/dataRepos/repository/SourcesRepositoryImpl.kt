@@ -8,8 +8,8 @@ import javax.inject.Inject
 
 class SourcesRepositoryImpl @Inject constructor(private val onlineDataSource: SourcesDataSource) :
     SourcesRepository {
-    override suspend fun getSources(category: String): List<Source?>? {
-        return onlineDataSource.getSources(category = category)
+    override suspend fun getSources(category: String, country: String): List<Source?>? {
+        return onlineDataSource.getSources(category = category, country= country)
     }
 
 }

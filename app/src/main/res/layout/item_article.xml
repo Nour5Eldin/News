@@ -38,7 +38,6 @@
                     app:placeholder="@{@drawable/loading_spinner}"
                     app:url="@{article.urlToImage}"
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
                 <TextView
                     android:id="@+id/sourceName_tv"
                     android:layout_width="match_parent"
@@ -57,7 +56,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:fontFamily="@font/poppins_light"
                     android:textSize="21sp"
@@ -65,19 +63,6 @@
                     style="@style/TextBackground"
                     app:layout_constraintTop_toBottomOf="@id/sourceName_tv"
                     tools:text="@{article.title}" />
-
-                <TextView
-                    android:id="@+id/article_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/poppins_light"
-                    android:lines="2"
-                    android:maxLines="2"
-                    android:textSize="18sp"
-                    app:layout_constraintTop_toBottomOf="@id/article_title"
-                    tools:text="@{article.description}" />
                 <TextView
                     android:id="@+id/article_time"
                     android:layout_width="match_parent"
@@ -89,7 +74,7 @@
                     android:maxLines="2"
                     android:textSize="12sp"
                     style="@style/TextBackground"
-                    app:layout_constraintTop_toBottomOf="@id/article_description"
+                    app:layout_constraintTop_toBottomOf="@id/article_title"
                     tools:text="@{article.publishedAt}" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 

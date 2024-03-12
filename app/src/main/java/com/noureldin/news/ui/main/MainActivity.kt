@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.SearchView
+import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
 import com.noureldin.news.databinding.ActivityMainBinding
@@ -18,20 +20,25 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var binding: ActivityMainBinding
+
+    var currentFragment = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        binding= ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.appBarMain.toolbar)
         binding.navView.setNavigationItemSelectedListener(this)
         enableHamburgerButton()
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().replace(
-                com.noureldin.news.R.id.fragment_container,
-                CategoriesFragment()
-            ).commit()
-        }
+        currentFragment = "categories"
+        supportFragmentManager.beginTransaction().replace(
+            com.noureldin.news.R.id.fragment_container,
+            CategoriesFragment(),
+            currentFragment
+        ).commit()
     }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(com.noureldin.news.R.menu.main, menu)
         val searchItem = menu.findItem(com.noureldin.news.R.id.action_search)
@@ -84,6 +91,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
 
@@ -104,23 +112,28 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         when (item.itemId) {
             com.noureldin.news.R.id.nav_categories -> {
+                currentFragment = "categories"
                 supportFragmentManager.beginTransaction().replace(
                     com.noureldin.news.R.id.fragment_container,
-                    CategoriesFragment()
+                    CategoriesFragment(),
+                    currentFragment
                 ).addToBackStack("").commit()
 
             }
 
             com.noureldin.news.R.id.nav_settings -> {
+                currentFragment = "settings"
                 supportFragmentManager.beginTransaction().replace(
                     com.noureldin.news.R.id.fragment_container,
-                    SettingsFragment()
+                    SettingsFragment(),
+                    currentFragment
                 ).addToBackStack("").commit()
             }
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+
     override fun onBackPressed() {
 
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -130,4 +143,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             super.onBackPressed()
         }
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("currentFragment", currentFragment)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+//        Log.e("tt", savedInstanceState.getString("currentFragment") ?: "")
+        when (savedInstanceState.getString("currentFragment")) {
+            "categories" -> Toast.makeText(this, "cat", Toast.LENGTH_SHORT).show()
+            "settings" -> {
+                currentFragment = "settings"
+                supportFragmentManager.beginTransaction().replace(
+                    com.noureldin.news.R.id.fragment_container,
+                    SettingsFragment(),
+                    currentFragment
+                ).addToBackStack("").commit()
+            }
+        }
+    }
+
 }

@@ -4,5 +4,5 @@ import com.noureldin.news.api.sourcesModel.Source
 
 
 interface SourcesRepository {
-    suspend fun getSources(category: String): List<Source?>?
+    suspend fun getSources(category: String,country: String ): List<Source?>?
 }

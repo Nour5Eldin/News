@@ -80,7 +80,6 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/poppins_thin"
             android:inputType="none"
-            android:text="United Arab Emirates"
             android:paddingStart="45dp"
             android:textColor="@color/green"
             android:textStyle="bold" />

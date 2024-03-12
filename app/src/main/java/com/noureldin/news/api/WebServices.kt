@@ -9,7 +9,8 @@ interface WebServices {
     @GET("/v2/top-headlines/sources")
     suspend fun getSources(
         @Query("apiKey") apiKey: String = ApiConstants.API_KEY,
-        @Query("category") category: String
+        @Query("category") category: String,
+        @Query("country") country: String
     ):SourcesResponse
 
     @GET("/v2/everything")

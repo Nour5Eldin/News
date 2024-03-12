@@ -1,5 +1,7 @@
 package com.noureldin.news.ui.articles
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -28,9 +30,15 @@ class ArticlesFragment : Fragment() {
     private val adapter = ArticlesAdapter()
     private lateinit var viewModel: ArticlesViewModel
     private lateinit var tabPreferences: TabPreferences
+    private var sharedPreferences: SharedPreferences? = null
+    private var country: String = " "
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[ArticlesViewModel::class.java]
+
+        sharedPreferences = activity?.getSharedPreferences("MODE", Context.MODE_PRIVATE)
+
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,9 +57,17 @@ class ArticlesFragment : Fragment() {
         binding.lifecycleOwner = this
 
         val category = arguments?.getString(Constants.CATEGORY).toString()
-        viewModel.getSources(category)
+        country = sharedPreferences?.getString("country_code", "us").let { countryCode ->
+            countryCode ?: "us"
+        }
+        //viewModel.getSources(category,country )
+        viewModel.getSources(category, country )
         initRecyclerView()
         initObservers()
+        binding.articlesRv.setOnClickListener {
+           // viewModel.getSources(category,country)
+            viewModel.getSources(category,country)
+        }
     }
 
     private fun setSelectedTabFromSharedPrefrences() {
