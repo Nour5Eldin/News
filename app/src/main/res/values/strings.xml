@@ -24,6 +24,7 @@
     <string name="science">Science</string>
     <string name="supervised_by_noureldin" translatable="false">Supervised by NourEldin</string>
     <string name="App_mode">App Mode</string>
+    <string name="retry">retry</string>
 
     <string-array name="languages">
         <item>English</item>

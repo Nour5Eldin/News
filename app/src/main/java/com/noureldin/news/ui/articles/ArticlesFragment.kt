@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayout
 import com.noureldin.news.R
@@ -68,8 +69,13 @@ class ArticlesFragment : Fragment() {
            // viewModel.getSources(category,country)
             viewModel.getSources(category,country)
         }
+        handleClicks(category=category)
     }
-
+    private fun handleClicks(category: String) {
+        binding.errorView.retryButton.setOnClickListener {
+            viewModel.getSources(category,country)
+        }
+    }
     private fun setSelectedTabFromSharedPrefrences() {
         val selectedTab = tabPreferences.getSelectedTab()
         binding.tabLayout.getTabAt(selectedTab)?.select()
@@ -119,7 +125,6 @@ class ArticlesFragment : Fragment() {
                 dialog.dismiss()
             })
     }
-
 
     private fun bindTabs(sources: List<Source?>?) {
         if (sources == null)

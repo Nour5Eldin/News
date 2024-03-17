@@ -28,6 +28,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        <include
+            android:id="@+id/errorView"
+            layout="@layout/error_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
@@ -44,6 +53,9 @@
             app:tabMode="scrollable"
             app:tabPaddingEnd="16dp"
             app:tabPaddingStart="16dp"
+            android:layout_margin="10dp"
+            app:tabGravity="center"
+            app:tabPadding="10dp"
             app:tabSelectedTextColor="@color/white" />
 
         <androidx.recyclerview.widget.RecyclerView
