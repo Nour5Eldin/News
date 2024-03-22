@@ -1,6 +1,7 @@
 package com.noureldin.news.api
 
 import android.util.Log
+import com.noureldin.news.database.MyDataBase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -49,6 +50,11 @@ class ApiManager {
     @Provides
     fun provideGsonConverterFactory(): GsonConverterFactory {
         return GsonConverterFactory.create()
+    }
+
+    @Provides
+    fun provideDatabase(): MyDataBase {
+        return MyDataBase.getInstance()
     }
 
 }

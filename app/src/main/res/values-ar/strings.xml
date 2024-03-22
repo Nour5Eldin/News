@@ -16,4 +16,5 @@
     <string name="science">العلوم</string>
     <string name="search_not_found">نعتذر لم نجد أي أخبار بكلمات البحث  </string>
     <string name="App_mode">وضع التطبيق </string>
+    <string name="retry">أعد المحاولة </string>
 </resources>

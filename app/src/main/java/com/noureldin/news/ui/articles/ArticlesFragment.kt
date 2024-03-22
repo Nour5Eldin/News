@@ -3,11 +3,13 @@ package com.noureldin.news.ui.articles
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
@@ -19,6 +21,7 @@ import com.noureldin.news.api.sourcesModel.Source
 import com.noureldin.news.databinding.FragmentArticlesBinding
 import com.noureldin.news.ui.articleDetails.ArticleDetailsFragment
 import com.noureldin.news.ui.main.MainActivity
+import com.noureldin.news.util.ConnectivityChecker
 import com.noureldin.news.util.Constants
 import com.noureldin.news.util.OnTryAgainClickListener
 import com.noureldin.news.util.TabPreferences
@@ -38,13 +41,19 @@ class ArticlesFragment : Fragment() {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[ArticlesViewModel::class.java]
 
-        sharedPreferences = activity?.getSharedPreferences("MODE", Context.MODE_PRIVATE)
+        sharedPreferences = activity?.getSharedPreferences("settings", Context.MODE_PRIVATE)
 
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val connect = ConnectivityChecker(requireContext())
+        if (connect.isNetworkAvailable(requireContext())) {
+            Toast.makeText(requireContext(), "Internet Connection Successfully", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(requireContext(), "Internet Connection Failed", Toast.LENGTH_SHORT).show()
+        }
         binding = FragmentArticlesBinding.inflate(inflater, container, false)
 
         tabPreferences = TabPreferences(requireContext())
@@ -58,9 +67,8 @@ class ArticlesFragment : Fragment() {
         binding.lifecycleOwner = this
 
         val category = arguments?.getString(Constants.CATEGORY).toString()
-        country = sharedPreferences?.getString("country_code", "us").let { countryCode ->
-            countryCode ?: "us"
-        }
+        country = sharedPreferences?.getString("country_code", "us") ?: "sssss"
+        Log.d("tt", country)
         //viewModel.getSources(category,country )
         viewModel.getSources(category, country )
         initRecyclerView()

@@ -41,7 +41,7 @@ class SettingsFragment : Fragment() {
         setLanguageDropDownMenuState(language)
         onLanguageDropDownMenuClick()
         switchNightMode()
-        sharedPreferences = activity?.getSharedPreferences("MODE", Context.MODE_PRIVATE)
+        sharedPreferences = activity?.getSharedPreferences("settings", Context.MODE_PRIVATE)
         // setCountrySettings()
 //        val countries = resources.getStringArray(R.array.countries)
 //        val adapter = ArrayAdapter(requireContext(), R.layout.drop_down_item, countries)
@@ -130,7 +130,7 @@ class SettingsFragment : Fragment() {
 
     private fun changeCountry(code: String) {
         val editor = requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE).edit()
-        editor.putString("countryCode", code)
+        editor.putString("country_code", code)
         editor.apply()
     }
 
@@ -140,13 +140,17 @@ class SettingsFragment : Fragment() {
         val adapter = ArrayAdapter(requireContext(), R.layout.drop_down_item, countries)
         binding.autoCompleteTVCountries.setAdapter(adapter)
 
-        val defaultCountryPosition = countries.indexOf("United States: us")
-        binding.autoCompleteTVCountries.setText(countries[defaultCountryPosition], false)
+//        val defaultCountryPosition = countries.indexOf("United States: us")
+        val code = sharedPreferences?.getString("country_code", "us") ?: "us"
+        val currentCountry = countries.find {
+            it.contains(code, true)
+        }
+        binding.autoCompleteTVCountries.setText(currentCountry, false)
 
         // Initialize SharedPreferences with the default country
-        val sharedPreferences = activity?.getSharedPreferences("settings", Context.MODE_PRIVATE)
-        val defaultCountryCode = countries[defaultCountryPosition].split(":")[1].trim()
-        sharedPreferences?.edit()?.putString("countryCode", defaultCountryCode)?.apply()
+//        val sharedPreferences = activity?.getSharedPreferences("settings", Context.MODE_PRIVATE)
+//        val defaultCountryCode = countries[defaultCountryPosition].split(":")[1].trim()
+//        sharedPreferences?.edit()?.putString("country_code", defaultCountryCode)?.apply()
 
         binding.autoCompleteTVCountries.setOnItemClickListener { _, _, position, _ ->
             val selectedCountryCode = countries[position].split(":")[1].trim()

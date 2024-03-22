@@ -5,4 +5,5 @@ import com.noureldin.news.api.sourcesModel.Source
 
 interface SourcesDataSource {
     suspend fun getSources(category: String, country:String): List<Source?>?
+    suspend fun saveSources(sourceList: List<Source>)
 }
