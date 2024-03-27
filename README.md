@@ -10,6 +10,7 @@ Note App demonstrates modern Android development with (Room, DataBase),MVVM, Rep
 <img width="395" alt="Screenshot 2024-03-27 at 7 12 46 PM" src="https://github.com/Nour5Eldin/News/assets/145837378/bf26f204-d24e-4727-8d77-e06a7c9a82d9">
 <img width="393" alt="Screenshot 2024-03-27 at 7 13 12 PM" src="https://github.com/Nour5Eldin/News/assets/145837378/a3d41489-d16e-4c63-a1c1-eb24b9226ffa">
 <img width="401" alt="Screenshot 2024-03-27 at 7 13 39 PM" src="https://github.com/Nour5Eldin/News/assets/145837378/e6d88648-6849-41ac-ae41-2e6500574fd4">
+<img width="392" alt="Screenshot 2024-03-27 at 7 35 03 PM" src="https://github.com/Nour5Eldin/News/assets/145837378/c2b44790-775a-491e-b1c6-6c5dd712d2b5">
 
 ## Tech stack & Open-source libraries
 - Minimum SDK level 26
