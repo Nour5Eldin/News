@@ -12,7 +12,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayout
 import com.noureldin.news.R
@@ -67,8 +66,8 @@ class ArticlesFragment : Fragment() {
         binding.lifecycleOwner = this
 
         val category = arguments?.getString(Constants.CATEGORY).toString()
-        country = sharedPreferences?.getString("country_code", "us") ?: "sssss"
-        Log.d("tt", country)
+        country = sharedPreferences?.getString("country_code", "us") ?: "us"
+        Log.d("us", country)
         //viewModel.getSources(category,country )
         viewModel.getSources(category, country )
         initRecyclerView()
