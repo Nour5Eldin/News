@@ -67,8 +67,8 @@ class ArticlesFragment : Fragment() {
         binding.lifecycleOwner = this
 
         val category = arguments?.getString(Constants.CATEGORY).toString()
-        country = sharedPreferences?.getString("country_code", "us") ?: "us"
-        Log.d("us", country)
+        country = sharedPreferences?.getString("country_code", "us") ?: "sssss"
+        Log.d("tt", country)
         //viewModel.getSources(category,country )
         viewModel.getSources(category, country )
         initRecyclerView()
