@@ -2,8 +2,6 @@ package com.noureldin.news.ui.splash
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -11,11 +9,10 @@ import android.os.Looper
 import androidx.appcompat.app.AppCompatDelegate
 import com.noureldin.news.databinding.ActivitySplashBinding
 import com.noureldin.news.ui.main.MainActivity
-import org.xml.sax.ext.LexicalHandler
+import com.noureldin.news.util.LocaleManager
 
 class SplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
-    private var sharedPreferences: SharedPreferences?=null
 
     lateinit var handler: Handler
     lateinit var runnable: Runnable
@@ -24,36 +21,36 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        switchNightMode()
 
         handler = Handler(Looper.getMainLooper())
         runnable = Runnable {
             startHomeActivity()
         }
             handler.postDelayed(runnable,2000)
-
+        loadSavedSettings()
     }
 
     private fun startHomeActivity() {
         startActivity(Intent(this,MainActivity::class.java))
         finish()
     }
-    private fun switchNightMode() {
+    private fun loadSavedSettings() {
+        val sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE)
 
-        sharedPreferences= getSharedPreferences("MODE", Context.MODE_PRIVATE)
-        val nightMode=sharedPreferences?.getBoolean("night",false)!!
+        // Load language
+        val languageCode = sharedPreferences.getString("language_code", "en")
+        LocaleManager.setLocale(this, languageCode)
 
-        if (nightMode && !isDark()){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        }
-//        else {
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-//        }
+        // Load country code
+        val countryCode = sharedPreferences.getString("country_code", "us")
 
+        // Apply country-specific settings or configurations if needed
+
+        // Load app mode
+        val isDarkMode = sharedPreferences.getBoolean("is_dark_mode", false)
+        AppCompatDelegate.setDefaultNightMode(if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
     }
-    private fun isDark(): Boolean {
-        return this.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
-    }
+
 
     override fun onDestroy() {
         super.onDestroy()

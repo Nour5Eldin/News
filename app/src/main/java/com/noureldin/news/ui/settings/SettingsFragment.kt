@@ -2,6 +2,7 @@ package com.noureldin.news.ui.settings
 
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,18 +13,14 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.SwitchCompat
 import com.noureldin.news.R
 import com.noureldin.news.databinding.FragmentSettingsBinding
 import com.noureldin.news.util.LocaleManager
 import com.noureldin.news.util.getCurrentLanguage
-import com.noureldin.news.util.recreateActivity
+
 
 class SettingsFragment : Fragment() {
     private lateinit var binding: FragmentSettingsBinding
-    private lateinit var switchCompat: SwitchCompat
-    private var nightMode: Boolean = false
-    private var editor: SharedPreferences.Editor? = null
     private var sharedPreferences: SharedPreferences? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,47 +37,10 @@ class SettingsFragment : Fragment() {
         val language = if (currentLanguageCode == "en") "English" else "Arabic"
         setLanguageDropDownMenuState(language)
         onLanguageDropDownMenuClick()
-        switchNightMode()
-        sharedPreferences = activity?.getSharedPreferences("settings", Context.MODE_PRIVATE)
-        // setCountrySettings()
-//        val countries = resources.getStringArray(R.array.countries)
-//        val adapter = ArrayAdapter(requireContext(), R.layout.drop_down_item, countries)
-//        binding.autoCompleteTVCountries.setAdapter(adapter)
-//
-//        binding.autoCompleteTVCountries.setOnItemClickListener { _, _, position, _ ->
-//            val selectedCountryCode = countries[position].split(":")[1].trim()
-//            changeCountry(selectedCountryCode)
-//        }
-
         setCountrySettings()
-
-    }
-
-
-
-    private fun switchNightMode() {
-        switchCompat = binding.switchMode
-        sharedPreferences = activity?.getSharedPreferences("MODE", Context.MODE_PRIVATE)
-        nightMode = sharedPreferences?.getBoolean("night", false)!!
-
-        if (nightMode) {
-            switchCompat.isChecked = true
-//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        }
-        switchCompat.setOnCheckedChangeListener { compoundButton, state ->
-            if (nightMode) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                editor = sharedPreferences?.edit()
-                editor?.putBoolean("night", false)
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                editor = sharedPreferences?.edit()
-                editor?.putBoolean("night", true)
-            }
-            editor?.apply()
-        }
-
-
+        setModeDropDownMenuState()
+        onModeDropDownMenuClick()
+        activity?.setTitle(getString(R.string.menu_settings))
     }
 
 
@@ -88,6 +48,8 @@ class SettingsFragment : Fragment() {
         super.onResume()
         setLanguageSettings()
         setCustomToolbarTitle(getString(R.string.menu_settings))
+        setModeSettings()
+
 
     }
 
@@ -134,29 +96,82 @@ class SettingsFragment : Fragment() {
         editor.apply()
     }
 
-
     private fun setCountrySettings() {
         val countries = resources.getStringArray(R.array.countries)
         val adapter = ArrayAdapter(requireContext(), R.layout.drop_down_item, countries)
         binding.autoCompleteTVCountries.setAdapter(adapter)
 
-//        val defaultCountryPosition = countries.indexOf("United States: us")
         val code = sharedPreferences?.getString("country_code", "us") ?: "us"
         val currentCountry = countries.find {
             it.contains(code, true)
         }
         binding.autoCompleteTVCountries.setText(currentCountry, false)
 
-        // Initialize SharedPreferences with the default country
-//        val sharedPreferences = activity?.getSharedPreferences("settings", Context.MODE_PRIVATE)
-//        val defaultCountryCode = countries[defaultCountryPosition].split(":")[1].trim()
-//        sharedPreferences?.edit()?.putString("country_code", defaultCountryCode)?.apply()
-
         binding.autoCompleteTVCountries.setOnItemClickListener { _, _, position, _ ->
             val selectedCountryCode = countries[position].split(":")[1].trim()
             changeCountry(selectedCountryCode)
         }
 
+    }
+
+    private fun setModeSettings() {
+        val modes = resources.getStringArray(R.array.modes)
+        val arrayAdapterModes = ArrayAdapter(requireContext(), R.layout.drop_down_item, modes)
+        binding.autoCompleteTVSwitchDark.setAdapter(arrayAdapterModes)
+        arrayAdapterModes.notifyDataSetChanged()
+
+    }
+
+    private fun onModeDropDownMenuClick() {
+        binding.autoCompleteTVSwitchDark.setOnItemClickListener { parent, view, position, id ->
+            val selectedMode = parent.getItemAtPosition(position).toString()
+            setModeDropDownMenuState()
+            val isDark = (selectedMode == "Dark")
+            changeMode(isDark)
+
+        }
+    }
+
+    private fun setModeDropDownMenuState() {
+        val currentNightMode =
+            resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
+        if (currentNightMode == android.content.res.Configuration.UI_MODE_NIGHT_NO) {
+            binding.autoCompleteTVSwitchDark.setText(getString(R.string.light))
+            changeModeDropDownMenuIcon("Light")
+        } else {
+            binding.autoCompleteTVSwitchDark.setText(R.string.dark)
+            changeModeDropDownMenuIcon("Dark")
+        }
+
+    }
+
+    private fun changeModeDropDownMenuIcon(selectedMode: String) {
+        if (selectedMode == "Light") {
+            binding.SwitchDarkTil.setStartIconDrawable( R.drawable.ic_light_mode)
+        } else {
+            binding.SwitchDarkTil.setStartIconDrawable(R.drawable.ic_dark)
+        }
+        binding.SwitchDarkTil.refreshStartIconDrawableState()
+    }
+
+    private fun changeMode(isDark: Boolean) {
+
+        if (isDark) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+    }
+
+
+    fun Fragment.recreateActivity() {
+        activity?.let {
+            val intent = Intent(it, it::class.java)
+            it.startActivity(intent)
+            it.finish()
+        }
     }
 
 
