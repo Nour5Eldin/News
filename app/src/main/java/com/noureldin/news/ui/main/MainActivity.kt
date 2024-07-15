@@ -10,6 +10,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
+import com.noureldin.news.R
 import com.noureldin.news.databinding.ActivityMainBinding
 import com.noureldin.news.ui.categories.CategoriesFragment
 import com.noureldin.news.ui.search.SearchFragment
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             CategoriesFragment(),
             currentFragment
         ).commit()
-    }
+        binding.navView.setCheckedItem(R.id.nav_categories)    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(com.noureldin.news.R.menu.main, menu)

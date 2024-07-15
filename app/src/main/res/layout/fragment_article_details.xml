@@ -18,16 +18,17 @@
         android:background="@drawable/pattern_bg"
         tools:context=".ui.articleDetails.ArticleDetailsFragment">
 
-            <ImageView
-                android:id="@+id/article_img"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                app:layout_constraintTop_toTopOf="parent"
-                app:placeholder="@{@drawable/loading_spinner}"
-                app:url="@{article.urlToImage}"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        <ImageView
+            android:id="@+id/article_img"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
+            app:placeholder="@{@drawable/loading_spinner}"
+            app:url="@{article.urlToImage}"
+            tools:srcCompat="@tools:sample/backgrounds/scenic"
+            android:transitionName="articleImage" />
             <TextView
                 android:id="@+id/article_title"
                 android:layout_width="match_parent"

@@ -33,6 +33,7 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedPreferences = requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE)
         val currentLanguageCode = getCurrentLanguage(requireContext())
         val language = if (currentLanguageCode == "en") "English" else "Arabic"
         setLanguageDropDownMenuState(language)
@@ -85,6 +86,7 @@ class SettingsFragment : Fragment() {
             val selectedLanguage = parent.getItemAtPosition(position).toString()
             val languageCode = if (selectedLanguage == "English") "en" else "ar"
             setLanguageDropDownMenuState(selectedLanguage)
+            sharedPreferences?.edit()?.putString("language_code", languageCode)?.apply()
             applyLanguageChange(languageCode)
 
         }
@@ -103,7 +105,7 @@ class SettingsFragment : Fragment() {
 
         val code = sharedPreferences?.getString("country_code", "us") ?: "us"
         val currentCountry = countries.find {
-            it.contains(code, true)
+            it.contains(": $code", true)
         }
         binding.autoCompleteTVCountries.setText(currentCountry, false)
 
@@ -127,6 +129,8 @@ class SettingsFragment : Fragment() {
             val selectedMode = parent.getItemAtPosition(position).toString()
             setModeDropDownMenuState()
             val isDark = (selectedMode == "Dark")
+            val mode = if (isDark) "Dark" else "light"
+            sharedPreferences?.edit()?.putString("Dark_mode", mode)?.apply()
             changeMode(isDark)
 
         }

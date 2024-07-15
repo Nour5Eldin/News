@@ -1,24 +1,26 @@
 package com.noureldin.news.ui.articles
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.noureldin.news.api.articlesModel.Article
 import com.noureldin.news.databinding.ItemArticleBinding
 
-class ArticlesAdapter(var articles: List<Article>? = null):
-RecyclerView.Adapter<ArticlesAdapter.ViewHolder>(){
-    inner class ViewHolder(val binding: ItemArticleBinding):
-    RecyclerView.ViewHolder(binding.root){
-        fun bind(article: Article){
+class ArticlesAdapter(var articles: List<Article>? = null) :
+    RecyclerView.Adapter<ArticlesAdapter.ViewHolder>() {
+
+    inner class ViewHolder(val binding: ItemArticleBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(article: Article) {
             binding.article = article
             binding.invalidateAll()
+            binding.articleImg.transitionName = "articleImage_${adapterPosition}"
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemArticleBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding = ItemArticleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -28,9 +30,9 @@ RecyclerView.Adapter<ArticlesAdapter.ViewHolder>(){
         val article = articles?.get(position)!!
         holder.bind(article)
 
-        if (onArticleClick != null){
+        if (onArticleClick != null) {
             holder.itemView.setOnClickListener {
-                onArticleClick?.invoke(article)
+                onArticleClick?.invoke(article, holder.binding.articleImg)
             }
         }
     }
@@ -40,5 +42,5 @@ RecyclerView.Adapter<ArticlesAdapter.ViewHolder>(){
         notifyDataSetChanged()
     }
 
-    var onArticleClick: ((article: Article) -> Unit)? = null
+    var onArticleClick: ((article: Article, sharedImageView: View) -> Unit)? = null
 }

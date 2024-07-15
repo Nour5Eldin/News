@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/artical_nav"
+    app:startDestination="@id/articlesFragment">
+
+    <fragment
+        android:id="@+id/articlesFragment"
+        android:name="com.noureldin.news.ui.articles.ArticlesFragment">
+        <action
+            android:id="@+id/action_articlesFragment_to_articleDetailsFragment"
+            app:destination="@id/articleDetailsFragment">
+            <argument
+                android:name="article"
+                app:argType="com.noureldin.news.api.articlesModel.Article" />
+            <transition>
+                <sharedElement>
+                    <sharedElement>article_img</sharedElement>
+                </sharedElement>
+            </transition>
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/articleDetailsFragment"
+        android:name="com.noureldin.news.ui.articleDetails.ArticleDetailsFragment">
+        <argument
+            android:name="article"
+            app:argType="com.noureldin.news.api.articlesModel.Article" />
+    </fragment>
+</navigation>

@@ -3,6 +3,7 @@ package com.noureldin.news.ui.articleDetails
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.transition.TransitionInflater
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,12 +21,21 @@ import com.noureldin.news.util.parcelable
 class ArticleDetailsFragment : Fragment(){
     private lateinit var binding: FragmentArticleDetailsBinding
     private var article: Article? = null
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        article = arguments?.getParcelable(Constants.ARTICLE)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentArticleDetailsBinding.inflate(inflater, container, false)
+        binding.article = article
+        binding.lifecycleOwner = this
+
+        // Ensure the transition name matches the one set in ArticlesFragment
+        binding.articleImg.transitionName = "articleImage_${arguments?.getInt("position")}"
 
         return binding.root
     }

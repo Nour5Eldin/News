@@ -109,13 +109,18 @@ class SearchFragment : Fragment() {
 
 
     private fun onArticleClick() {
-        adapter.onArticleClick = { article: Article ->
+        adapter.onArticleClick = { article: Article, sharedImageView: View ->
             val bundle = Bundle()
             bundle.putParcelable(Constants.ARTICLE, article)
-            val fragment = ArticleDetailsFragment()
-            fragment.arguments = bundle
-            parentFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment)
-                .addToBackStack("").commit()
+            val fragment = ArticleDetailsFragment().apply {
+                arguments = bundle
+            }
+            parentFragmentManager.beginTransaction()
+                .setReorderingAllowed(true)
+                .addSharedElement(sharedImageView, sharedImageView.transitionName)
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit()
         }
     }
 
