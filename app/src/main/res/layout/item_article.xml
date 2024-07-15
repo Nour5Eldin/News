@@ -80,5 +80,5 @@
                     app:layout_constraintStart_toStartOf="@id/article_title"
                     app:layout_constraintEnd_toEndOf="@id/article_title"
                     tools:text="@{article.publishedAt}" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+  </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
